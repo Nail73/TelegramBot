@@ -3,14 +3,9 @@ import random
 from telebot import types # для указание типов
 import time
 
-import asyncio
-
-token = " "
+token = "5832710604:AAHXUDGvW3lBEAIE3Xa1TnOUF7PDXNzPuoE"
 
 bot = telebot.TeleBot(token)
-
-RANDOM_TASKS = ['Наиль', 'Олег', 'Андрей', 'Артём', 'Санёк', 'Виталя', 'Пётр', 'Илья', 'Коля']
-task = random.choice(RANDOM_TASKS)
 
 @bot.message_handler(commands=['start'])
 def echo(message):
@@ -19,7 +14,6 @@ def echo(message):
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
-
     markup.add(start_button)
 
     bot.send_message(message.chat.id, "Кто в данный момент лох?".format(message.from_user), reply_markup=markup)
@@ -27,26 +21,29 @@ def echo(message):
 @bot.message_handler(func=lambda message: message.text=='Узнать')
 def get_all(message: types.Message):
 
-    cur_time = int(time.strftime("%M"))
-    if cur_time >= 1 and cur_time <= 7:
-        text = 'Наиль'
-    elif cur_time >= 8 and cur_time <= 15:
-        text = 'Олег'
-    elif cur_time >= 16 and cur_time <= 23:
-        text = 'Андрей'
-    elif cur_time >= 24 and cur_time <= 31:
-        text = 'Артём'
-    elif cur_time >= 32 and cur_time <= 39:
-        text = 'Санёк'
-    elif cur_time >= 40 and cur_time <= 47:
-        text = 'Виталя'
-    elif cur_time >= 48 and cur_time <= 53:
-        text = 'Пётр'
-    elif cur_time >= 54 and cur_time <= 59:
-        text = 'Илья'
-    else:
-        text = 'Коля'
+    RANDOM_TASKS = ['Наиль', 'Олег', 'Андрей', 'Артём', 'Санёк', 'Виталя', 'Пётр', 'Илья', 'Коля', 'Говорят, каждый 3-й, поэтому вопрос открыт', 'Тчск, берега попутал, лохов искать?)']
+    url = ['https://www.factroom.ru/wp-content/uploads/2022/01/3-18.jpg',
+    'https://www.factroom.ru/wp-content/uploads/2022/01/1-21.jpg',
+    'https://www.factroom.ru/wp-content/uploads/2022/01/7-10.jpg',
+    'https://www.factroom.ru/wp-content/uploads/2022/01/5-11.jpg',
+    'https://www.factroom.ru/wp-content/uploads/2022/01/4-11.jpg',
+    'https://www.factroom.ru/wp-content/uploads/2022/01/1-19.jpg',
+    'https://www.factroom.ru/wp-content/uploads/2022/01/8-9.jpg',
+    'https://www.factroom.ru/wp-content/uploads/2022/01/6-10.jpg']
 
-    bot.send_message(message.chat.id, text)
+    word = ['Конечно же это - ',
+    'А ты сомневался? Это - ',
+    '100 пудов ты догадывался, что это - ',
+    'Если он не в чате, не говорите, что лох - ',
+    'Ну раз тебе так интересно, то вот он - ',
+    'Для люопытных - ']
+    text = random.choice(RANDOM_TASKS)
+
+    if text != 'Говорят, каждый 3-й, поэтому вопрос открыт' and text != 'Тчск, берега попутал, лохов искать?)':
+        bot.send_message(message.chat.id, random.choice(word) + text)
+        bot.send_message(message.chat.id, 'Интересный факт, чтобы не быть лохом: ')
+        bot.send_message(message.chat.id, random.choice(url))
+    else:
+        bot.send_message(message.chat.id, text)
 
 bot.polling(none_stop=True)
