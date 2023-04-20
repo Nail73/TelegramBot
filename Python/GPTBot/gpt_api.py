@@ -3,12 +3,12 @@ import telebot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 
-token = "6185263204:AAGTCJmXUeen-ueqiRABbLeYuk-8VxnvgGE"
+token = ""
 bot = telebot.TeleBot(token)
 
 class GPT:
     def __init__(self):
-        openai.api_key = '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'
+        openai.api_key = ''
         self.__messages = []
 
     def request(self, task):
